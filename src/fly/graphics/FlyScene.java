@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import fly.shared.graphics.Event;
+import fly.shared.Event;
 import fly.window.Window;
 import fly.window.listener.FlyKeyListener;
 import fly.window.listener.FlyMouseListener;

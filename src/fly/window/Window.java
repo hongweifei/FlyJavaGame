@@ -31,44 +31,74 @@ public class Window
 	}
 
 
-	/*设置窗口为可视*/
+	/**
+	 * 设置窗口为可视
+	 * 
+	 * @param arg
+	 */
 	public void SetVisible(boolean arg){this.window.setVisible(arg);}
-	/*设置窗口布局*/
+	/**
+	 * 设置窗口布局
+	 * @param manager
+	 */
 	public void SetLayout(LayoutManager manager) {this.window.setLayout(manager);}
 
 
-	/*设置窗口图标*/
+	/**
+	 * 设置窗口图标
+	 * @param path
+	 * @throws IOException
+	 */
 	public void SetIcon(String path) throws IOException
 	{
 		Image img = ImageIO.read(this.window.getClass().getResource(path));//读取路径图片
 		this.window.setIconImage(img);//设置图片为窗口图标
 		this.SetVisible(true);
 	}
-	/*设置窗口图标*/
+	/**
+	 * 设置窗口图标
+	 * @param input
+	 * @throws IOException
+	 */
 	public void SetIcon(URL input) throws IOException
 	{
 		Image img = ImageIO.read(input);//读取图片
 		this.window.setIconImage(img);//设置图片为窗口图标
 		this.SetVisible(true);
 	}
-	/*设置窗口图标*/
+	/**
+	 * 设置窗口图标
+	 * @param img
+	 */
 	public void SetIcon(Image img){this.window.setIconImage(img);this.SetVisible(true);}
 
 
-	/*设置菜单栏*/
+	/**
+	 * 设置菜单栏
+	 * @param menu_bar
+	 */
 	public void SetMenuBar(MenuBar menu_bar)
 	{this.window.setJMenuBar(menu_bar.GetMenuBar());this.window.setVisible(true);}
 
-	/*设置Fly菜单栏*/
+	/**
+	 * 设置Fly菜单栏
+	 * @param menu_bar
+	 */
 	public void SetMenuBar(FlyMenuBar menu_bar)
 	{this.window.setJMenuBar(menu_bar.GetMenuBar());this.window.setVisible(true);}
 
 
-	/*获取JFrame*/
+	/**
+	 * 获取JFrame
+	 * @return
+	 */
 	public JFrame GetFrame() {return window;}
 
 
-	/*添加鼠标监听器*/
+	/**
+	 * 添加鼠标监听器
+	 * @param listener
+	 */
 	public void AddMouseListener(FlyMouseListener listener)
 	{
 		this.window.addMouseListener(listener);
@@ -76,19 +106,41 @@ public class Window
 		this.window.addMouseWheelListener(listener);
 	}
 
-	/*添加key监听器*/
+	/**
+	 * 添加key监听器
+	 * @param listener
+	 */
 	public void AddKeyListener(FlyKeyListener listener)
 	{this.window.addKeyListener(listener);}
 
-	/*添加窗口监听器*/
+	/**
+	 * 添加窗口监听器
+	 * @param listener
+	 */
 	public void AddWindowListener(FlyWindowListener listener)
 	{this.AddMouseListener(listener);this.AddKeyListener(listener);this.window.addWindowListener(listener);}
 
 
-	/*window.Add*/
+	/**
+	 * window.Add
+	 * @param comp
+	 */
 	public void Add(Component comp){this.window.getContentPane().add(comp);}
+	
+	/**
+	 * window.Add
+	 * @param widget
+	 */
 	public void Add(FlyWidget widget){this.window.getContentPane().add(widget.Get());}
 }
+
+
+
+
+
+
+
+
 
 
 

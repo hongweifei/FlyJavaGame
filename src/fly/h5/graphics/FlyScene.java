@@ -4,7 +4,7 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.Window;
 
-import fly.shared.graphics.Event;
+import fly.shared.Event;
 
 
 public class FlyScene
