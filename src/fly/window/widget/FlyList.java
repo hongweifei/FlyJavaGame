@@ -52,6 +52,7 @@ public class FlyList<T> extends FlyWidget
 	 *
 	 * @return 返回项索引
 	 * */
+	@SuppressWarnings("unchecked")
 	public int[] AddItems(T... T)
 	{
 		int index[] = new int[T.length];

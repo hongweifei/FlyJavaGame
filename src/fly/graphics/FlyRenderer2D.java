@@ -8,11 +8,21 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
 
 
 public class FlyRenderer2D extends FlyRenderer
 {
 	private Graphics2D g = null;
+	
+	private ArrayList<Image> image = new ArrayList<Image>(0);
+	private ArrayList<String> image_path = new ArrayList<String>(0);
+	private int image_draw_index = -1;
 
 	public FlyRenderer2D()
 	{
@@ -417,6 +427,97 @@ public class FlyRenderer2D extends FlyRenderer
 	}
 
 
+	
+	/**
+	 * 
+	 * @param path
+	 */
+	public void AddImage(String path)
+	{
+		Image image = null;
+		try {image = ImageIO.read(new File(path));}
+		catch (IOException e) {e.printStackTrace();}
+		
+		if(image != null)
+		{
+			this.image.add(image);
+			this.image_path.add(path);
+			//System.out.println(this.toString() + ":AddImage");
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param list
+	 * @param str
+	 * @return 如果没有匹配的返回-1,否则返回索引
+	 */
+	private int ArrayListHaveString(ArrayList<String> list,String str)
+	{
+		for(int i = 0;i < list.size();i++)
+		{
+			if(list.get(i).equals(str))
+				return i;
+		}
+		return -1;
+	}
+	
+	
+	public boolean DrawImage(String path,int x,int y)
+	{
+		if((image_draw_index = this.ArrayListHaveString(image_path, path)) >= 0)
+		{
+			return this.DrawImage(this.image.get(image_draw_index), x, y, null);
+		}
+		
+		this.AddImage(path);
+		return this.DrawImage(image.get(image.size() - 1), x, y, null);
+	}
+	
+	public boolean DrawImage(String path,int x,int y,int w,int h)
+	{
+		if((image_draw_index = this.ArrayListHaveString(image_path, path)) >= 0)
+		{
+			return this.DrawImage(this.image.get(image_draw_index), x, y, w, h, null);
+		}
+		
+		this.AddImage(path);
+		return this.DrawImage(image.get(image.size() - 1), x, y, w, h, null);
+	}
+	
+	
+	public boolean DrawImage(String path,int x,int y,int w,int h,
+				int sx,int sy,int sw,int sh)
+	{
+		if((image_draw_index = this.ArrayListHaveString(image_path, path)) >= 0)
+		{
+			return this.DrawImage(this.image.get(image_draw_index), x, y, w, h, sx, sy, sw, sh, null);
+		}
+		
+		this.AddImage(path);
+		return this.DrawImage(image.get(image.size() - 1), x, y, w, h, sx, sy, sw, sh, null);
+	}
+	
+	
+	
+	public boolean DrawImage(int image_index,int x,int y)
+	{
+		return this.DrawImage(image.get(image_index), x, y, null);
+	}
+	
+	public boolean DrawImage(int image_index,int x,int y,int w,int h)
+	{
+		return this.DrawImage(image.get(image_index), x, y, w, h, null);
+	}
+	
+	
+	public boolean DrawImage(int image_index,int x,int y,int w,int h,
+				int sx,int sy,int sw,int sh)
+	{
+		return this.DrawImage(image.get(image_index), x, y, w, h, sx, sy, sw, sh, null);
+	}
+	
 }
 
 

@@ -28,17 +28,32 @@ public class FlyScene extends JPanel
 	private boolean renderer_init = false;
 
 	/**场景渲染事件*/
-	private Event<FlyRenderer2D> render_event =
-			new Event<FlyRenderer2D>(){@Override public void invoke(FlyRenderer2D renderer) {}};
+	private Event<FlyRenderer2D> render_event_a = null;
+	private RenderEvent render_event_b = null;
 
 	private boolean auto_repaint = false;
 
 	public FlyScene()
 	{
-		//renderer = new FlyRenderer2D();
+		this(null);
 	}
 
-	public FlyScene(Window w) {this();this.AddToWindow(w);}
+	public FlyScene(Window w)
+	{
+		//renderer = new FlyRenderer2D();
+		
+		render_event_a =new Event<FlyRenderer2D>() {
+			@Override public void invoke(FlyRenderer2D renderer) {}
+		};
+		
+		render_event_b = new RenderEvent() {
+			@Override public void Init(FlyRenderer2D renderer) {}
+			@Override public void Render(FlyRenderer2D renderer) {}
+		};
+		
+		if(w != null)
+			this.AddToWindow(w);
+	}
 
 	/*
 	绘制组件的边框。
@@ -65,23 +80,26 @@ public class FlyScene extends JPanel
 		super.paint(g);
 
 		if(!renderer_init)
+		{
 			renderer = new FlyRenderer2D((Graphics2D)g);
+			render_event_b.Init(renderer);
+		}
 
-		render_event.invoke(renderer);
+		render_event_a.invoke(renderer);
+		render_event_b.Render(renderer);
 
-		if(auto_repaint
-			//|| renderer.Render(g)
-			)
+		if(this != null && auto_repaint)
 			super.repaint();
 	}
 
-
+	
+	
 	/**
 	 * 设置渲染事件
 	 * */
 	public void SetRenderEvent(Event<FlyRenderer2D> event)
 	{
-		this.render_event = event;
+		this.render_event_a = event;
 	}
 
 	/**
@@ -89,7 +107,25 @@ public class FlyScene extends JPanel
 	 * */
 	public void SetRenderEvent(Event<FlyRenderer2D> event,boolean repaint)
 	{
-		this.render_event = event;
+		this.render_event_a = event;
+		this.auto_repaint = repaint;
+	}
+	
+	
+	/**
+	 * 设置渲染事件
+	 * */
+	public void SetRenderEvent(RenderEvent event)
+	{
+		this.render_event_b = event;
+	}
+
+	/**
+	 * 设置渲染事件
+	 * */
+	public void SetRenderEvent(RenderEvent event,boolean repaint)
+	{
+		this.render_event_b = event;
 		this.auto_repaint = repaint;
 	}
 
