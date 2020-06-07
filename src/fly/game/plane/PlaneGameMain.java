@@ -9,6 +9,8 @@ public class PlaneGameMain
 	
 	public static void main(String[] args)
 	{
+		System.out.println(fly.shared.os.OSInformation.GetOS().toString());
+		
 		window = new Window("PlaneFight",600,800);
 		window.SetVisible(true);
 		
