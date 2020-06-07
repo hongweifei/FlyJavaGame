@@ -45,9 +45,9 @@ public class PlaneGame
 				if(e.getButton() == MouseEvent.BUTTON3)
 					player_bullet.add(
 						new fly.game.plane.Bullet(
-								player.GetX() + player.w / 2 - 26 / 2,
+								player.GetX() + player.w / 2 - 50 / 2,
 								player.GetY() - player.GetHeight(),
-								26,
+								50,
 								100,
 								20
 						)
@@ -78,9 +78,9 @@ public class PlaneGame
 
 			@Override public void Init(FlyRenderer2D renderer)
 			{
-				renderer.AddImage("plane/player.png");
-				renderer.AddImage("plane/enemy1.png");
-				renderer.AddImage("bullet/bullet1.png");
+				renderer.AddImage("assets/plane/player.png");
+				renderer.AddImage("assets/plane/enemy1.png");
+				renderer.AddImage("assets/bullet/bullet1.png");
 			}
 			
 			@Override public void Render(FlyRenderer2D renderer)
@@ -165,7 +165,7 @@ public class PlaneGame
 				}
 				
 				
-				try {Thread.sleep(1000/30);}
+				try {Thread.sleep(1000/60);}
 				catch (InterruptedException e) {e.printStackTrace();}
 			}
 		},true);
